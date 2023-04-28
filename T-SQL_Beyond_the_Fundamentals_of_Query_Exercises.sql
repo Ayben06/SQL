@@ -29,6 +29,7 @@ select * from dbo.Orders
 
 
 --1
+
 select custid, orderid, qty,
 rank() over(partition by custid order by qty) as rnk,		
 dense_rank() over(partition by custid order by qty) as drnk
@@ -36,6 +37,7 @@ from dbo.Orders
 
 
 --2
+
 select val, row_number() over(order by val) as rownum from Sales.OrderValues
 group by val
 
@@ -48,6 +50,7 @@ from C
 
 
 --3
+
 select custid, orderid, qty,
 qty - lag(qty) over(partition by custid order by orderdate, orderid) as prev_qty,
 qty - lead(qty) over(partition by custid order by orderdate, orderid) as next_qty
@@ -55,6 +58,7 @@ from dbo.Orders
 
 
 --4
+
 select empid, count(case when orderyear = 2014 then orderyear end) as cnt2014,
 count(case when orderyear = 2015 then orderyear end) as cnt2015,
 count(case when orderyear = 2016 then orderyear end) as cnt2016

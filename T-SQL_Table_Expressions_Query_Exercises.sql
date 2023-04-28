@@ -1,4 +1,5 @@
 --1
+
 with C as
 ( select O.orderid, O.orderdate, O.custid, O.empid,
 datefromparts(year(O.orderdate), 12, 31) as endofyear
@@ -9,11 +10,13 @@ from C
 where orderdate <> endofyear
 
 --2.1
+
 select O.empid, max(O.orderdate) as maxorderdate from Sales.Orders O
 group by O.empid
 
 
 --2.2
+
 with B as
 ( select O.empid, max(O.orderdate) as maxorderdate
 from Sales.Orders O group by empid
@@ -24,11 +27,13 @@ on O.empid = B.empid and O.orderdate = B.maxorderdate
 
 
 --3.1
+
 select orderid,orderdate, custid, empid,
 row_number() over (order by orderdate asc, orderid asc) as rownum from Sales.Orders
 
 
 --3.2
+
 with rn as
 (select orderid,orderdate, custid, empid,
 row_number() over (order by orderdate asc, orderid asc) as rownum from Sales.Orders
@@ -38,6 +43,7 @@ where rownum between 11 and 20
 
 
 --4
+
 with EmpCte as
 (select empid, mgrid, firstname, lastname
 from HR.Employees where empid = 9
@@ -50,6 +56,7 @@ from EmpCte
 
 
 --5.1
+
 drop view if exists Sales.VEmpOrders
 go
 create view Sales.VEmpOrders
@@ -63,6 +70,7 @@ go
 
 
 --5.2
+
 select *, (select sum (qty) from Sales.VEmpOrders V1
 where V1.empid = V2.empid and V1.orderyear <= V2.orderyear) as runqty
 from Sales.VEmpOrders as V2
@@ -70,6 +78,7 @@ order by empid, orderyear
 
 
 --6.1
+
 drop function if exists Production.TopProducts
 go
 create function Production.TopProducts (@supid as int, @n as int)
@@ -95,6 +104,7 @@ go
 
 
 --6.2
+
 drop function if exists Production.TopProducts
 go
 create function Production.TopProducts (@supid as int, @n as int)
