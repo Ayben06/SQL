@@ -27,7 +27,6 @@ values
 
 select * from dbo.Orders
 
-
 --1
 
 select custid, orderid, qty,
