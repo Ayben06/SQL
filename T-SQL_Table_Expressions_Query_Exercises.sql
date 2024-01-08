@@ -67,8 +67,7 @@ inner join Sales.OrderDetails OD on O.orderid = OD.orderid
 group by empid, year(orderdate)
 go
 
-
-
+	
 --5.2
 
 select *, (select sum (qty) from Sales.VEmpOrders V1
