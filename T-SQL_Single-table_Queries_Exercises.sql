@@ -64,3 +64,4 @@ from HR.Employees
 select custid, region
 from Sales.Customers
 order by case when region IS NULL then 0 else 1 end desc
+
