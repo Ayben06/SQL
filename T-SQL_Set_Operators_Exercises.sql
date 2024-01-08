@@ -47,3 +47,4 @@ union all
 select 2, country, region, city from Production.Suppliers
 )
 select t.country, t.region, t.city from t order by t.num, t.country, t.region, t.city
+
